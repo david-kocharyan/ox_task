@@ -1,0 +1,12 @@
+services:
+  code-guardian:
+    build: .
+    image: code-guardian:latest
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./results:/results
+      - trivy-cache:/trivy-cache
+    # Interactive: docker compose run --rm code-guardian scan --output-dir /results --cache-dir /trivy-cache
+volumes:
+  trivy-cache:
