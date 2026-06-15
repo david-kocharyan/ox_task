@@ -1,8 +1,7 @@
 # Code Guardian
 
-A CLI that wraps [Trivy](https://github.com/aquasecurity/trivy) to scan one or more Git repositories, print a concise stdout summary, and write per-repository result files with vulnerability details and a Graphviz dependency graph (CRITICAL packages highlighted).
+A CLI that wraps [Trivy](https://github.com/aquasecurity/trivy) to scan one or more Git repositories, print a concise stdout summary, and write per-repository result files with vulnerability details and a Graphviz dependency graph.
 
-Built for the OX Security home assignment — focused on clear engineering trade-offs rather than feature sprawl.
 
 ## Quick start (Docker — recommended)
 
@@ -23,7 +22,7 @@ You will be asked:
 ```
 Enter one or more Git repository URLs to scan.
 Separate multiple repos with spaces or commas.
-Repository URL(s): https://github.com/OWASP/NodeGoat https://github.com/david-kocharyan/yophonepy
+Repository URL(s): https://github.com/OWASP/NodeGoat
 ```
 
 ### Pass repos directly (non-interactive)
@@ -49,7 +48,6 @@ docker run --rm \
   --cache-dir /trivy-cache \
   https://github.com/OWASP/NodeGoat \
   https://github.com/OWASP/railsgoat \
-  https://github.com/david-kocharyan/yophonepy
 ```
 
 ### Output
@@ -80,7 +78,7 @@ This project uses **pip** (not Poetry).
 cd /path/to/ox_task
 
 python3 -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
+source .venv/bin/activate
 
 pip install -e .
 ```
@@ -131,7 +129,6 @@ code-guardian scan -w 3 \
   --cache-dir .trivy-cache \
   https://github.com/OWASP/NodeGoat \
   https://github.com/OWASP/railsgoat \
-  https://github.com/david-kocharyan/yophonepy
 ```
 
 Results are written to `./results/` (JSON, DOT, and PNG files).
@@ -177,7 +174,6 @@ Small, layered modules with no framework beyond Typer:
 - `runner` — orchestration and per-repo error isolation
 - `report` — stdout + JSON artifacts
 
-**Why not a plugin framework or async?** The workload is subprocess- and network-bound; a `ThreadPoolExecutor` gives most of the parallelism benefit with simpler failure modes. A heavier architecture would not demonstrate better judgment for this scope.
 
 ### Trivy integration
 
@@ -215,16 +211,3 @@ JSON per repository rather than one combined file:
 - Easier to diff, archive, and feed downstream tools per repo.
 - Embeds artifact paths for DOT/PNG.
 - Graphviz DOT is also written standalone for manual `dot -Tpng` rendering.
-
-### What I deliberately did not build
-
-- Web UI, database, or scheduled scans
-- SARIF/CSV exporters (JSON is enough for the assignment)
-- Private registry auth for non-public repos
-- Custom severity policy / CI gate exit codes
-
-These are reasonable extensions but would dilute the assignment's focus on CLI design, resilience, and packaging.
-
-## License
-
-MIT
