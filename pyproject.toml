@@ -16,12 +16,6 @@ dependencies = [
     "rich>=13.7",
 ]
 
-[project.optional-dependencies]
-dev = [
-    "pytest>=8.0",
-    "pytest-cov>=5.0",
-]
-
 [project.scripts]
 code-guardian = "code_guardian.cli:app"
 
@@ -32,11 +26,7 @@ dev-mode-dirs = ["src"]
 packages = ["src/code_guardian"]
 
 [tool.hatch.build.targets.sdist]
-only-include = ["src/code_guardian", "tests", "README.md", "pyproject.toml"]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-addopts = "-q"
+only-include = ["src/code_guardian", "README.md", "pyproject.toml"]
 
 [tool.ruff]
 line-length = 100

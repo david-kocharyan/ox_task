@@ -82,7 +82,7 @@ cd /path/to/ox_task
 python3 -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 
-pip install -e ".[dev]"
+pip install -e .
 ```
 
 Install Trivy and Graphviz (macOS example):
@@ -135,12 +135,6 @@ code-guardian scan -w 3 \
 ```
 
 Results are written to `./results/` (JSON, DOT, and PNG files).
-
-### 4. Run tests
-
-```bash
-pytest
-```
 
 ## CLI reference
 
@@ -221,10 +215,6 @@ JSON per repository rather than one combined file:
 - Easier to diff, archive, and feed downstream tools per repo.
 - Embeds artifact paths for DOT/PNG.
 - Graphviz DOT is also written standalone for manual `dot -Tpng` rendering.
-
-### Testing
-
-Unit tests cover parsing, graph highlighting, GitHub URL parsing, and report writing — the logic we own. End-to-end Trivy scans are left to Docker/manual runs because they are slow and network-dependent; mocking subprocess in CI would test our mocks, not Trivy.
 
 ### What I deliberately did not build
 

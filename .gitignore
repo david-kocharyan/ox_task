@@ -5,9 +5,6 @@ __pycache__/
 build/
 .venv/
 venv/
-.pytest_cache/
-.coverage
-htmlcov/
 results/
 .trivy-cache/
 *.png
